@@ -7,7 +7,7 @@ type HealthcheckResponse = {
 };
 
 @Injectable()
-export class AppService {
+export class HealthService {
   getHealthcheck(): HealthcheckResponse {
     return {
       status: 'ok',
