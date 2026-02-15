@@ -29,27 +29,25 @@ export class PostsController {
 
   @Get(':id')
   @ApiOperation({ summary: 'Obtener un post por id' })
-  @ApiParam({ name: 'id', description: 'Mongo ObjectId del post' })
-  @ApiBadRequestResponse({ description: 'ObjectId inválido' })
-  @ApiNotFoundResponse({ description: 'Post no encontrado' })
   findOne(@Param('id') id: string) {
     return this.postsService.findOne(id);
   }
 
   @Patch(':id')
   @ApiOperation({ summary: 'Actualizar un post' })
-  @ApiParam({ name: 'id', description: 'Mongo ObjectId del post' })
-  @ApiBadRequestResponse({ description: 'ObjectId inválido o body inválido' })
-  @ApiNotFoundResponse({ description: 'Post no encontrado' })
   update(@Param('id') id: string, @Body() updatePostDto: UpdatePostDto) {
     return this.postsService.update(id, updatePostDto);
+  }
+
+  @Patch(':id/toggle-published')
+  @ApiOperation({ summary: 'Alternar estado de publicación del post' })
+  togglePublished(@Param('id') id: string) {
+    return this.postsService.togglePublished(id);
   }
 
   @Delete(':id')
   @ApiOperation({ summary: 'Eliminar un post' })
   @ApiParam({ name: 'id', description: 'Mongo ObjectId del post' })
-  @ApiBadRequestResponse({ description: 'ObjectId inválido' })
-  @ApiNotFoundResponse({ description: 'Post no encontrado' })
   remove(@Param('id') id: string) {
     return this.postsService.remove(id);
   }

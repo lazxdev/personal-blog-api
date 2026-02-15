@@ -1,6 +1,5 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import {
-  IsBoolean,
   IsNotEmpty,
   IsOptional,
   IsString,
@@ -39,9 +38,4 @@ export class CreatePostDto {
   @IsString()
   @MaxLength(240)
   excerpt?: string;
-
-  @ApiPropertyOptional({ example: false, default: false })
-  @IsOptional()
-  @IsBoolean()
-  published?: boolean;
 }

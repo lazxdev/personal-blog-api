@@ -1,7 +1,6 @@
 import { ApiPropertyOptional } from '@nestjs/swagger';
 import { CreatePostDto } from './create-post.dto';
 import {
-  IsBoolean,
   IsOptional,
   IsString,
   Matches,
@@ -39,9 +38,4 @@ export class UpdatePostDto implements Partial<CreatePostDto> {
   @IsString()
   @MaxLength(240)
   excerpt?: string;
-
-  @ApiPropertyOptional({ example: true })
-  @IsOptional()
-  @IsBoolean()
-  published?: boolean;
 }

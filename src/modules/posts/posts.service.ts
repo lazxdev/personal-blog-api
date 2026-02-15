@@ -21,7 +21,7 @@ export class PostsService {
         slug: createPostDto.slug,
         excerpt: createPostDto.excerpt,
         content: createPostDto.content,
-        published: createPostDto.published ?? false,
+        published: false,
       },
     });
   }
@@ -55,7 +55,27 @@ export class PostsService {
           slug: updatePostDto.slug,
           excerpt: updatePostDto.excerpt,
           content: updatePostDto.content,
-          published: updatePostDto.published,
+        },
+      });
+    } catch (error: unknown) {
+      this.handlePrismaError(error, id);
+      throw error;
+    }
+  }
+
+  async togglePublished(id: string): Promise<Post> {
+    this.ensureValidObjectId(id);
+
+    try {
+      const post = await this.prisma.post.findUnique({
+        where: { id },
+        select: { published: true },
+      });
+
+      return await this.prisma.post.update({
+        where: { id },
+        data: {
+          published: !(post?.published ?? false),
         },
       });
     } catch (error: unknown) {
